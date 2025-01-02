@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Equipo{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Editar Equipo</h1>
+<form action="{{ url_for('editar_equipo', id=equipo.id) }}" method="post">
+    <div class="mb-3">
+        <label>Nombre del Equipo</label>
+        <input type="text" name="nombre_equipo" class="form-control" value="{{ equipo.nombre_equipo }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Tipo de Equipo</label>
+        <input type="text" name="tipo_equipo" class="form-control" value="{{ equipo.tipo_equipo }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Marca</label>
+        <input type="text" name="marca" class="form-control" value="{{ equipo.marca }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Modelo</label>
+        <input type="text" name="modelo" class="form-control" value="{{ equipo.modelo }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Número de Serie</label>
+        <input type="text" name="numero_serie" class="form-control" value="{{ equipo.numero_serie }}" required>
+    </div>
+    <div class="mb-3">
+        <label>Fecha de Compra</label>
+        <input type="date" name="fecha_compra" class="form-control" value="{{ equipo.fecha_compra }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Actualizar Equipo</button>
+</form>
+{% endblock %}

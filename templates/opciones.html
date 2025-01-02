@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-center">Opciones Disponibles</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ url_for('pagina1') }}">Página 1</a></li>
+            <li class="list-group-item"><a href="{{ url_for('pagina2') }}">Página 2</a></li>
+            <li class="list-group-item"><a href="{{ url_for('pagina3') }}">Página 3</a></li>
+            <li class="list-group-item"><a href="{{ url_for('pagina4') }}">Página 4</a></li>
+            <li class="list-group-item"><a href="{{ url_for('pagina5') }}">Página 5</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

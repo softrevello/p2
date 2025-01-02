@@ -1,0 +1,16 @@
+
+
+
+1- contacto original app.py
+
+@app.route('/contacto')
+def contacto():
+    return render_template('contacto.html')
+
+2-
+@app.route('/procesos')
+def procesos():
+    return render_template('procesos.html')
+
+
+

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h1 class="text-center mb-4">Acerca de Nosotros</h1>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="lead">
+                        En <strong>Loteo Colores</strong>, nos especializamos en ofrecer soluciones innovadoras para la gestión y protección de datos. 
+                        Nuestro equipo está comprometido con la excelencia y la seguridad en todos nuestros procesos.
+                    </p>
+                    <p>
+                        Desde nuestra fundación, hemos trabajado para proporcionar herramientas tecnológicas que permitan a las empresas 
+                        y personas mantener su información protegida en un mundo digital cada vez más desafiante.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Misión -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-primary text-white">Misión</div>
+                <div class="card-body">
+                    <p>
+                        Brindar soluciones confiables y de alta calidad para garantizar la seguridad y confidencialidad de la información 
+                        de nuestros clientes.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Visión -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">Visión</div>
+                <div class="card-body">
+                    <p>
+                        Ser líder en soluciones de seguridad digital, reconocidos por nuestra innovación, ética y compromiso con la calidad.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Valores -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-header bg-warning text-dark">Valores</div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li>Innovación</li>
+                        <li>Compromiso</li>
+                        <li>Integridad</li>
+                        <li>Trabajo en equipo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <h3>Contáctanos</h3>
+            <p>¿Tienes preguntas? Estamos aquí para ayudarte.</p>
+            <a href="{{ url_for('contacto') }}" class="btn btn-primary">Ir a Contacto</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

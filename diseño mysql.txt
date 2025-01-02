@@ -1,0 +1,8 @@
+CREATE DATABASE bd_seguridad;
+
+USE bd_seguridad;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    clave VARCHAR(100) NOT NULL
+);

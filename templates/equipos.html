@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Equipos{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Gestión de Equipos Computacionales</h1>
+
+<form action="{{ url_for('equipos') }}" method="post" class="mb-4">
+    <h4>Agregar Nuevo Equipo</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Nombre del Equipo</label>
+            <input type="text" name="nombre_equipo" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Tipo de Equipo</label>
+            <input type="text" name="tipo_equipo" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Marca</label>
+            <input type="text" name="marca" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Modelo</label>
+            <input type="text" name="modelo" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Número de Serie</label>
+            <input type="text" name="numero_serie" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Fecha de Compra</label>
+            <input type="date" name="fecha_compra" class="form-control" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Agregar Equipo</button>
+</form>
+
+<h4>Lista de Equipos</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Número de Serie</th>
+            <th>Fecha de Compra</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipo in equipos %}
+        <tr>
+            <td>{{ equipo.id }}</td>
+            <td>{{ equipo.nombre_equipo }}</td>
+            <td>{{ equipo.tipo_equipo }}</td>
+            <td>{{ equipo.marca }}</td>
+            <td>{{ equipo.modelo }}</td>
+            <td>{{ equipo.numero_serie }}</td>
+            <td>{{ equipo.fecha_compra }}</td>
+            <td>
+                <a href="{{ url_for('editar_equipo', id=equipo.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{{ url_for('eliminar_equipo', id=equipo.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

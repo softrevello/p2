@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h1 class="text-center mb-4">Quiénes Somos</h1>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="lead">
+                        Somos un equipo dedicado a brindar soluciones tecnológicas innovadoras que transforman la manera en que las empresas y personas protegen su información.
+                    </p>
+                    <p>
+                        En <strong>Loteo Colores</strong>, creemos en la importancia de la seguridad y la confianza. Desde nuestros inicios, hemos trabajado para ser un aliado estratégico en la gestión de datos, adaptándonos a los cambios constantes del entorno digital.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Historia -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">Nuestra Historia</div>
+                <div class="card-body">
+                    <p>
+                        Fundada en 2021, Loteo Colores nació con la visión de crear un espacio seguro en el ámbito digital. A lo largo de los años, hemos crecido junto a nuestros clientes, ofreciendo soluciones que se ajustan a sus necesidades.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Nuestro Equipo -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-info text-white">Nuestro Equipo</div>
+                <div class="card-body">
+                    <p>
+                        Contamos con un grupo diverso de profesionales apasionados por la tecnología y la seguridad. Cada miembro de nuestro equipo aporta experiencia, creatividad y compromiso en cada proyecto.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <h3>Nuestra Promesa</h3>
+            <p>
+                Estamos comprometidos a proteger lo que más importa: tu información. Trabajamos cada día para ofrecerte soluciones confiables y efectivas.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <a href="{{ url_for('acerca_de') }}" class="btn btn-primary">Conoce más sobre nosotros</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
