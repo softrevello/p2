@@ -118,16 +118,8 @@ def cerrar_sesion():
     flash('Sesión cerrada exitosamente', 'info')
     return redirect(url_for('home'))
 
-# if __name__ == '__main__':
-#    app.run(debug=True)
     
-  
-  
-  
-  
-  ### AGREGADO
-  
-    
+### AGREGADO
     
 #    from flask import Flask, render_template, request, redirect, url_for,
 #import mysql.connector
@@ -146,8 +138,16 @@ def cerrar_sesion():
 # Página principal para gestión de equipos
 @app.route('/equipos', methods=['GET', 'POST'])
 def equipos():
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor(dictionary=True)
+
+ # Agregado mio
+   connection = connect_to_db()
+   with connection.cursor() as cursor:
+
+#mmuo
+ #   cursor.execute("SELECT * FROM equipos")
+ #   equipos = cursor.fetchall()
+ #    connection.commit()
+#
 
     if request.method == 'POST':
         # Capturar datos del formulario
@@ -165,39 +165,39 @@ def equipos():
             VALUES (%s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (nombre_equipo, tipo_equipo, marca, modelo, numero_serie, fecha_compra))
-            conn.commit()
+            connection.commit()
             flash('Equipo agregado correctamente.', 'success')
-        except mysql.connector.Error as err:
+        except pymysql.connector.Error as err:
             flash(f'Error al agregar el equipo: {err}', 'danger')
 
     # Recuperar todos los equipos
     cursor.execute("SELECT * FROM equipos")
     equipos = cursor.fetchall()
 
-    conn.close()
+    connection.close()
     return render_template('equipos.html', equipos=equipos)
 
 # Ruta para eliminar un equipo
 @app.route('/equipos/eliminar/<int:id>')
 def eliminar_equipo(id):
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
+    connection =pymysql.connect(**db_config) 
+    cursor = connection.cursor()
 
     try:
         cursor.execute("DELETE FROM equipos WHERE id = %s", (id,))
-        conn.commit()
+        connection.commit()
         flash('Equipo eliminado correctamente.', 'info')
-    except mysql.connector.Error as err:
+    except pymysql.connect.Error as err:
         flash(f'Error al eliminar el equipo: {err}', 'danger')
 
-    conn.close()
+    connection.close()
     return redirect(url_for('equipos'))
 
 # Ruta para editar un equipo
 @app.route('/equipos/editar/<int:id>', methods=['GET', 'POST'])
 def editar_equipo(id):
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor(dictionary=True)
+    connection =pymysql.connect(**db_config) 
+    cursor = connection.cursor()
 
     if request.method == 'POST':
         # Actualizar datos
@@ -216,19 +216,19 @@ def editar_equipo(id):
             WHERE id = %s
             """
             cursor.execute(query, (nombre_equipo, tipo_equipo, marca, modelo, numero_serie, fecha_compra, id))
-            conn.commit()
+            connection.commit()
             flash('Equipo actualizado correctamente.', 'success')
-        except mysql.connector.Error as err:
+        except pymysql.connector.Error as err:
             flash(f'Error al actualizar el equipo: {err}', 'danger')
 
-        conn.close()
+        connection.close()
         return redirect(url_for('equipos'))
 
     # Obtener los datos actuales del equipo
     cursor.execute("SELECT * FROM equipos WHERE id = %s", (id,))
     equipo = cursor.fetchone()
 
-    conn.close()
+    connection.close()
     return render_template('editar_equipo.html', equipo=equipo)
 
 if __name__ == '__main__':
