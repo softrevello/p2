@@ -150,11 +150,13 @@ def equipos():
    connection = connect_to_db()
    with connection.cursor() as cursor:
 
+
 #mmuo
  #   cursor.execute("SELECT * FROM equipos")
  #   equipos = cursor.fetchall()
  #    connection.commit()
-#
+ #
+
 
     if request.method == 'POST':
         # Capturar datos del formulario
