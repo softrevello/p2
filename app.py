@@ -154,7 +154,7 @@ def equipos():
 #mmuo
  #   cursor.execute("SELECT * FROM equipos")
  #   equipos = cursor.fetchall()
- #    connection.commit()
+ #   connection.commit()
  #
 
 
