@@ -7,6 +7,7 @@ app.secret_key = 'tu_clave_secreta'  # Cambiar a una clave más segura
 # Configuración de la base de datos
 db_config = {
     'host': 'localhost',
+    'port': 3306,
     'user': 'root',  # Cambiar si tienes un usuario diferente
     'password': '',  # Cambiar si tienes una contraseña configurada
     'database': 'bd_seguridad',
@@ -31,7 +32,12 @@ def acerca_de():
 
 @app.route('/menu')
 def menu():
-    return render_template('equipos.html')
+    if 'usuario' in session:
+        return render_template('opciones.html')
+    #   return render_template('equipos.html')
+    flash('Debes iniciar sesión para acceder a estas opciones', 'warning')
+    return redirect(url_for('inicio_sesion'))
+    
     
 # Ruta para la página de contacto
 @app.route('/contacto', methods=['GET', 'POST'])
@@ -85,8 +91,9 @@ def opciones():
 @app.route('/pagina1')
 def pagina1():
     if 'usuario' in session:
-        return render_template('pagina1.html')
+        return render_template('equipos.html')
     return redirect(url_for('inicio_sesion'))
+
 
 @app.route('/pagina2')
 def pagina2():
@@ -173,7 +180,7 @@ def equipos():
     # Recuperar todos los equipos
     cursor.execute("SELECT * FROM equipos")
     equipos = cursor.fetchall()
-
+    
     connection.close()
     return render_template('equipos.html', equipos=equipos)
 
