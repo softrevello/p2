@@ -4,12 +4,22 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ url_for('pagina1') }}">Página 1</a></li>
-            <li class="list-group-item"><a href="{{ url_for('pagina2') }}">Página 2</a></li>
-            <li class="list-group-item"><a href="{{ url_for('pagina3') }}">Página 3</a></li>
-            <li class="list-group-item"><a href="{{ url_for('pagina4') }}">Página 4</a></li>
-            <li class="list-group-item"><a href="{{ url_for('pagina5') }}">Página 5</a></li>
+            {% if 'usuario' in session %}
+                <li class="list-group-item"><a href="{{ url_for('pagina1') }}">Página 1</a></li>
+                <li class="list-group-item"><a href="{{ url_for('pagina2') }}">Página 2</a></li>
+                <li class="list-group-item"><a href="{{ url_for('pagina3') }}">Página 3</a></li>
+                <li class="list-group-item"><a href="{{ url_for('pagina4') }}">Página 4</a></li>
+                <li class="list-group-item"><a href="{{ url_for('pagina5') }}">Página 5</a></li>
+            {% endif %}
         </ul>
     </div>
 </div>
 {% endblock %}
+
+
+
+
+
+
+
+

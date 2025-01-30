@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_mail import Mail, Message
 import pymysql
 
 app = Flask(__name__)
@@ -6,17 +7,38 @@ app.secret_key = 'tu_clave_secreta'  # Cambiar a una clave más segura
 
 # Configuración de la base de datos
 db_config = {
-    'host': 'localhost',
+    'host': 'sql10.freesqldatabase.com',
     'port': 3306,
-    'user': 'root',  # Cambiar si tienes un usuario diferente
-    'password': '',  # Cambiar si tienes una contraseña configurada
-    'database': 'bd_seguridad',
+    'user': 'sql10760232',  # Cambiar si tienes un usuario diferente
+    'password': 'ucMG7JD3kU',  # Cambiar si tienes una contraseña configurada
+    'database': 'sql10760232',
     'cursorclass': pymysql.cursors.DictCursor
+    #'host': 'localhost',
+    #'port': 3306,
+    #'user': 'root',  # Cambiar si tienes un usuario diferente
+    #'password': '',  # Cambiar si tienes una contraseña configurada
+    #'database': 'bd_seguridad',
 }
 
 # Conexión a la base de datos
 def connect_to_db():
     return pymysql.connect(**db_config)
+
+#nuevo 2
+# Configuración de la aplicación
+#app.config['SECRET_KEY'] = '1234'  # Cambia esto a una clave secreta adecuada
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Cambia según tu servidor SMTP
+app.config['MAIL_PORT'] = 587  # Puerto para SMTP (usualmente 587 o 465)
+app.config['MAIL_USE_TLS'] = True  # Usar TLS
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'alejandro.revello@gmail.com'  # Tu correo electrónico
+app.config['MAIL_PASSWORD'] = ''  # La contraseña de tu correo electrónico
+app.config['MAIL_DEFAULT_SENDER'] = 'alejandro.revello@gmail.com'  # Correo desde el cual se enviarán los mensajes
+
+# Inicializar Flask-Mail
+mail = Mail(app)
+#fin nuevo2
+
 
 @app.route('/')
 def home():
@@ -40,6 +62,26 @@ def menu():
     
     
 # Ruta para la página de contacto
+#@app.route('/contacto', methods=['GET', 'POST'])
+#def contacto():
+#    if request.method == 'POST':
+#        # Recuperar los datos enviados por el formulario
+#        nombre = request.form['nombre']
+#        email = request.form['email']
+#        mensaje = request.form['mensaje']
+
+#        # Validación básica (puedes personalizarla)
+#        if not nombre or not email or not mensaje:
+#            flash('Todos los campos son obligatorios.', 'danger')
+#        else:
+#            flash('Mensaje enviado correctamente. ¡Gracias por contactarnos!', 'success')
+
+#        # Redirigir de vuelta a la página de contacto
+#        return redirect(url_for('contacto'))
+
+#    # Mostrar el formulario cuando sea GET
+#    return render_template('contacto.html')
+#nuevo2
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     if request.method == 'POST':
@@ -52,30 +94,43 @@ def contacto():
         if not nombre or not email or not mensaje:
             flash('Todos los campos son obligatorios.', 'danger')
         else:
-            flash('Mensaje enviado correctamente. ¡Gracias por contactarnos!', 'success')
+            # Crear el mensaje para enviar por correo
+            msg = Message("Nuevo mensaje de contacto", recipients=["alejandro.revello@gmail.com"])  # Cambia el destinatario
+            msg.body = f"Nombre: {nombre}\nCorreo: {email}\nMensaje: {mensaje}"
+
+            try:
+                # Enviar el mensaje de correo
+                mail.send(msg)
+                flash('Mensaje enviado correctamente. ¡Gracias por contactarnos!', 'success')
+            except Exception as e:
+                flash(f'Ocurrió un error al enviar el mensaje: {e}', 'danger')
 
         # Redirigir de vuelta a la página de contacto
         return redirect(url_for('contacto'))
 
     # Mostrar el formulario cuando sea GET
     return render_template('contacto.html')
+#fin nuevo2
+
 
 
 
 @app.route('/inicio-sesion', methods=['GET', 'POST'])
 def inicio_sesion():
     if request.method == 'POST':
+        usuario = request.form['usuario']
         clave = request.form['clave']
         try:
             connection = connect_to_db()
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM usuarios WHERE clave = %s", (clave,))
-                usuario = cursor.fetchone()
-                if usuario:
+               # cursor.execute("SELECT * FROM usuarios WHERE clave = %s", (clave,))
+               cursor.execute("SELECT * FROM usuarios WHERE id = %s and clave = %s", (usuario,clave,))
+               usuario = cursor.fetchone()
+               if usuario:
                     session['usuario'] = usuario['clave']
                     flash('Inicio de sesión exitoso', 'success')
                     return redirect(url_for('opciones'))
-                else:
+               else:
                     flash('Clave incorrecta', 'danger')
         finally:
             connection.close()
